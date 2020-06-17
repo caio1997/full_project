@@ -13,7 +13,7 @@ import com.myhome.full_project.entities.Categoria;
 import com.myhome.full_project.services.CategoriaService;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/categorias")
 public class CategoriaController {
 
 	@Autowired
