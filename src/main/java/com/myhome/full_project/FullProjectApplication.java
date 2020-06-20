@@ -13,6 +13,7 @@ import com.myhome.full_project.entities.Cidade;
 import com.myhome.full_project.entities.Cliente;
 import com.myhome.full_project.entities.Endereco;
 import com.myhome.full_project.entities.Estado;
+import com.myhome.full_project.entities.ItemPedido;
 import com.myhome.full_project.entities.Pagamento;
 import com.myhome.full_project.entities.PagamentoComBoleto;
 import com.myhome.full_project.entities.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.myhome.full_project.repositories.CidadeRepository;
 import com.myhome.full_project.repositories.ClienteRepository;
 import com.myhome.full_project.repositories.EnderecoRepository;
 import com.myhome.full_project.repositories.EstadoRepository;
+import com.myhome.full_project.repositories.ItemPedidoRepository;
 import com.myhome.full_project.repositories.PagamentoRepository;
 import com.myhome.full_project.repositories.PedidoRepository;
 import com.myhome.full_project.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class FullProjectApplication implements CommandLineRunner{
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -121,6 +126,19 @@ public class FullProjectApplication implements CommandLineRunner{
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 2000.00, 1);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 80.00, 2);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 800.00, 1);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 		
 	}
 
