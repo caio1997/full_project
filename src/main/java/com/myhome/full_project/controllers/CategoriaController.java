@@ -1,7 +1,9 @@
 package com.myhome.full_project.controllers;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.myhome.full_project.dto.CategoriaDTO;
 import com.myhome.full_project.entities.Categoria;
 import com.myhome.full_project.services.CategoriaService;
 
@@ -49,6 +52,14 @@ public class CategoriaController {
 	public ResponseEntity<Void> update(@PathVariable Long id){
 		categoriaService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll(){
+		List<Categoria> list = categoriaService.findAll();
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok(listDTO);
+				
 	}
 
 }
