@@ -21,5 +21,9 @@ public class CategoriaService {
 		 return Optional.ofNullable(obj.orElseThrow(() -> new IdIsNotfound("Id não existente"))); 
 		}
 	
+	public Categoria insert(Categoria categoria) {
+		return categoriaRepository.save(categoria);
+	}
+	
 	
 }
