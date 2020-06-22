@@ -49,7 +49,11 @@ public class Cliente implements Serializable{
 		this.nome = nome;
 		this.email = email;
 		this.cfpOuCnpj = cfpOuCnpj;
-		this.tipo = tipo.getCod();
+		if(tipo == null) {
+			tipo = null;
+		}else {
+			this.tipo =  tipo.getCod();
+		}
 	}
 
 	public Long getId() {
